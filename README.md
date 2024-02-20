@@ -1,7 +1,7 @@
 # 5.-ControlElements
 # Задания по ControlElements подходу
 
-Тестовая страница:  https://ib.psbank.ru/store/products/your-cashback-new 
+Тестируемая страница:  https://ib.psbank.ru/store/products/your-cashback-new 
 
 ### Задание №1. Метод взаимодействия с элементом выпадающий список
 Создать метод выбора значения из предлагаемого списка для поля Фамилия.
