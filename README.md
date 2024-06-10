@@ -1,4 +1,4 @@
-# 4.-ControlElements
+# ControlElements
 # Задания по ControlElements подходу
 
 Тестируемая страница:  https://ib.psbank.ru/store/products/your-cashback-new 
