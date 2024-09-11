@@ -1,7 +1,9 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\src",
+    "\\src\\ControlElements_Practice"
   ],
-  "SelectedNode": "\\C:\\Users\\pozii\\Source\\Repos\\5.-ControlElements",
+  "SelectedNode": "\\4.-ControlElements.sln",
   "PreviewInSolutionExplorer": false
 }
