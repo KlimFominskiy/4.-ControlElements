@@ -18,7 +18,7 @@ internal class Program
 
     private static readonly string cardHolderLastNameInputXPath = "//input[@name='CardHolderLastName']";
 
-    private static Dictionary<IWebElement, string> categoriesDictionary = new();
+    private static readonly string yourCashackTariffButton = "//h4[contains(text(), 'Дебетовая карта') and contains(text(), 'Твой кешбэк')]";
 
     internal static void Main()
     {
@@ -29,20 +29,20 @@ internal class Program
         webDriver.Navigate().GoToUrl(yourCashbackNewURL);
         webDriverWait.Until(driver => ((IJavaScriptExecutor)driver).ExecuteScript("return document.readyState").Equals("complete"));
 
-        // 1. Метод взаимодействия с CheckBox
+        // 1. Взаимодействие с CheckBox
 
         webDriverWait.Until(driver => driver.FindElement(By.XPath(changeCategoriesButtonXPath))).Click();
         Console.WriteLine("Введите категорию. Например - Такси и каршеринг.");
         SelectCheckbox(Console.ReadLine());
         webDriverWait.Until(driver => driver.FindElement(By.XPath(modalTitleContainerCloseButtonXPath))).Click();
         
-        // 2. Метод взаимодействия с выпадающим списоком.
+        // 2. Взаимодействие с выпадающим списоком.
         
         SelectOption("Пу", "Пушкин");
 
-        // 3. Метод взаимодействия с кнопкой скачивания.
-
-        //
+        // 3. Взаимодействие с кнопкой скачивания.
+        
+        OpenDocument(yourCashackTariffButton);
 
         webDriver.Quit();
         webDriver.Dispose();
@@ -87,5 +87,20 @@ internal class Program
         IWebElement cardHolderLastNameOption = webDriverWait.Until(driver => driver.FindElement(By.XPath($"//mat-option//div[text()=' {option} ']")));
         cardHolderLastNameOption.Click();
         Console.WriteLine($"Введённая фамилия - {cardHolderLastNameInput.GetAttribute("value")}");
+    }
+
+    /// <summary>
+    /// 3. Метод взаимодействия с кнопкой скачивания.
+    /// </summary>
+    /// <param name="documentButtonXPath"></param>
+    private static void OpenDocument(string documentButtonXPath)
+    {
+        webDriverWait.Until(driver => driver.FindElement(By.XPath(documentButtonXPath))).Click();
+        var allTabs = webDriver.WindowHandles;
+        string currentTab = webDriver.CurrentWindowHandle;
+        int currentTabIndex = webDriver.WindowHandles.IndexOf(webDriver.CurrentWindowHandle);
+        webDriver.SwitchTo().Window(allTabs[currentTabIndex + 1]);
+        webDriverWait.Until(driver => ((IJavaScriptExecutor)driver).ExecuteScript("return document.readyState").Equals("complete"));
+        Console.WriteLine($"Адрес сайта с документом - {webDriver.Url}");
     }
 }
